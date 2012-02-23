@@ -1,0 +1,64 @@
+/**
+ * Change Log
+ */
+
+/**
+ * @version 1.8.3-12.02.23b (rc2)
+ */
+- hooks 'phloor_object:save:after' and 'phloor_object:save:before'
+- hooks 'phloor_object:create', 'phloor_object:update' and 'phloor_object:delete' 
+- prettyboxes (simplecache, js, ...)
+- namespaces image/thumbnails 
+
+/**
+ * @version 1.8.3-12.02.20b (rc1)
+ */
+- requiresPHP version >= 5.3.0 because of namespaces!
+- added page_handler.lib.php (phloor/object, phloor/site, ...)
+- added page_handler_defaults.lib.php (registers default page handler)
+- added entity_object.lib.php (contains default functions for objects)
+- included class.upload_0.31
+- Image/Thumbnails extend ElggFile (partially finished)
+
+/**
+ * @version 1.8-12.01.28b
+ */
+- string functions
+
+/**
+ * @version 1.8-12.01.25b
+ */
+- "init" event instead of "plugins_boot" (deprecated)
+- added colorpicker
+- removed fluid960gs library (externalized)
+
+/**
+ * @version 1.8-12.01.19b
+ */
+- add phloorlib.js
+- finally fixed icon issue
+- "lazy load" prettyboxes css file
+
+/**
+ * @version 1.8-12.01.14b
+ */
+- reordered boot process - hooks into "plugins_boot"
+- added fluid960gs library
+- added prettycheckboxes library
+- added qtip2 library
+
+/**
+ * @version 1.8-12.01.11b
+ */
+- added masonry library
+- added infinitescroll library
+
+/**
+ * @version 1.8-11.12.31b
+ */
+- added some functions
+
+/**
+ * @version 1.8-11.12.15b
+ */
+- Initial release
