@@ -60,7 +60,7 @@ function create_thumbnails(&$object) {
     $image = $object->image;
     $mime  = $object->getMimeType();
 
-    $file = new ElggFile();
+    $file = new \ElggFile();
     $file->owner_guid = elgg_get_logged_in_user_guid();
     $file->setMimeType($mime);
 

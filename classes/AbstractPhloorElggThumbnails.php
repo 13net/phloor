@@ -1,29 +1,29 @@
 <?php
 /*****************************************************************************
  * Phloor                                                                    *
- *                                                                           *
- * Copyright (C) 2011 Alois Leitner                                          *
- *                                                                           *
- * This program is free software: you can redistribute it and/or modify      *
- * it under the terms of the GNU General Public License as published by      *
- * the Free Software Foundation, either version 2 of the License, or         *
- * (at your option) any later version.                                       *
- *                                                                           *
- * This program is distributed in the hope that it will be useful,           *
- * but WITHOUT ANY WARRANTY; without even the implied warranty of            *
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             *
- * GNU General Public License for more details.                              *
- *                                                                           *
- * You should have received a copy of the GNU General Public License         *
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
- *                                                                           *
- * "When code and comments disagree both are probably wrong." (Norm Schryer) *
- *****************************************************************************/
+*                                                                           *
+* Copyright (C) 2011 Alois Leitner                                          *
+*                                                                           *
+* This program is free software: you can redistribute it and/or modify      *
+* it under the terms of the GNU General Public License as published by      *
+* the Free Software Foundation, either version 2 of the License, or         *
+* (at your option) any later version.                                       *
+*                                                                           *
+* This program is distributed in the hope that it will be useful,           *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of            *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             *
+* GNU General Public License for more details.                              *
+*                                                                           *
+* You should have received a copy of the GNU General Public License         *
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
+*                                                                           *
+* "When code and comments disagree both are probably wrong." (Norm Schryer) *
+*****************************************************************************/
 ?>
 <?php
 
 /**
- * 
+ *
  * @author void
  *
  */
@@ -38,7 +38,7 @@ abstract class AbstractPhloorElggThumbnails extends AbstractPhloorElggImage {
         // DONT DELETE object even when there was an
         // error deleting the thumbnails
         $return = $return && parent::delete();
-        
+
         // ElggFile may not return anything atm
         return $return;
     }
@@ -84,7 +84,7 @@ abstract class AbstractPhloorElggThumbnails extends AbstractPhloorElggImage {
         if (!$this->canEdit()) {
             return false;
         }
-        
+
         if(!$this->hasImage()) {
             return false;
         }
@@ -125,11 +125,11 @@ abstract class AbstractPhloorElggThumbnails extends AbstractPhloorElggImage {
         $files = array();
         $icon_sizes = elgg_get_config('icon_sizes');
 
-        
+
         $file = new ElggFile();
-        $file->owner_guid = $this->owner_guid;       
+        $file->owner_guid = $this->owner_guid;
         $prefix = "{$this->getSubtype()}/images/thumbnails/{$this->guid}/";
-        
+
         $files = array();
         foreach ($icon_sizes as $size => $_) {
             // try to look for the thumbnail through file handler
@@ -137,8 +137,8 @@ abstract class AbstractPhloorElggThumbnails extends AbstractPhloorElggImage {
             if($file->exists()) {
                 $files[$size] = $file->getFilenameOnFilestore();
                 continue;
-            }        
-            
+            }
+
             // @todo: delete this part when everything is upgraded to 1.8.3
             $thumbnail = $this->get("thumb$size");
             if (file_exists($thumbnail) && is_file($thumbnail)) {
@@ -153,7 +153,7 @@ abstract class AbstractPhloorElggThumbnails extends AbstractPhloorElggImage {
         if (!$this->canEdit()) {
             return false;
         }
-        
+
         $return = true;
 
         $file = new ElggFile();
@@ -163,7 +163,7 @@ abstract class AbstractPhloorElggThumbnails extends AbstractPhloorElggImage {
         foreach ($thumbnails as $thumbnail) {
             if ($thumbnail && file_exists($thumbnail) && is_file($thumbnail)) {
                 $return = $return && @unlink($thumbnail);
-                
+
                 // @todo: delete this part when everythign is upgraded
                 $this->set("thumb$size", '');
             }
