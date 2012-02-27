@@ -274,6 +274,10 @@ function get_input_vars($subtype) {
  * saving process (break up on return value
  * FALSE)
  * 
+ * triggers events
+ * - 'phloor_object:save:before'
+ * - 'phloor_object:save:after'
+ * 
  * @return bool true on successful save
  */
 function save_vars($entity, $params = array()) {    
@@ -371,7 +375,7 @@ function check_vars($entity, &$params) {
 
     // trigger plugin hook to check variables of an object with a given subtype
     $return = elgg_trigger_plugin_hook('phloor_object:check_vars', $subtype, $hook_params, $params);
-    if ($return === false || !is_array($return)) {
+    if (!is_array($return)) {
         return false;
     }
 
@@ -421,8 +425,8 @@ function form_vars($subtype, $guid = NULL) {
     $form_variables = elgg_trigger_plugin_hook('phloor_object:form_vars', $subtype, $options, array());
     
     $sticky_values = array();
-    if (elgg_is_sticky_form('phloor_menuitem')) {
-        $sticky_values = elgg_get_sticky_values('phloor_menuitem');
+    if (elgg_is_sticky_form($subtype)) {
+        $sticky_values = elgg_get_sticky_values($subtype);
     }
     
     $return = array();

@@ -65,7 +65,10 @@ $english = array(
 
 	"phloor:error:view:not_found" => 'Could not find input view %s. ',
 	
-	"phloor:error:check_vars:return:false" => 'Entity validation process reports an error.',
+	"phloor:error:check_vars:return:false" => 'Entity validation process reports an error. ',
+
+
+	"phloor:error:unknown_subtype" => 'Unknown subtype. ',
 
 
 /*** general entity messages ************************************************/

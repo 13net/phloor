@@ -93,11 +93,18 @@ function create_thumbnails(&$object) {
         }
     }
 
-    //return $object->save();
     return true;
 }
 
-// registered to phloor_object_create, $subtype
+/**
+ * Recreates the thumbnails for an entity with an image
+ * 
+ * @param string                  $phloor_event 'phloor_object:save:after'
+ * @param string                  $subtype      'all'
+ * @param AbstractPhloorElggImage $object
+ * 
+ * @return boolean true
+ */
 function save_after_event_handler($phloor_event, $subtype, $object) {
     if (!namespace\instance_of($object)) {
         return true;

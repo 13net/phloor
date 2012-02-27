@@ -8,7 +8,7 @@
 - hooks 'phloor_object:save:after' and 'phloor_object:save:before'
 - hooks 'phloor_object:create', 'phloor_object:update' and 'phloor_object:delete' 
 - prettyboxes (simplecache, js, ...)
-- namespaces image/thumbnails 
+- namespaces image/thumbnails (fixed image hook bug)
 
 /**
  * @version 1.8.3-12.02.20b (rc1)

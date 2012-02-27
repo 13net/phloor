@@ -141,7 +141,8 @@ function phloor_views_boot() {
     /**
      * CSS
      */
-    elgg_extend_view('css/elgg', 'phloor/css/elgg');
+    elgg_extend_view('css/elgg',  'phloor/css/elgg');
+    elgg_extend_view('css/admin', 'phloor/css/admin');
 
     elgg_extend_view('css/elgg',  'phloor/css/elements/icons');
     elgg_extend_view('css/admin', 'phloor/css/elements/icons');

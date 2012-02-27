@@ -46,7 +46,7 @@ function instance_of($entity) {
  * @param unknown_type $return
  * @param unknown_type $params
  */
-function check_vars_event_handler($hook, $type, $return, $params) {
+function check_vars($hook, $type, $return, $params) {
     if ($return === false || !is_array($return)) {
         return $return;
     }
@@ -55,25 +55,40 @@ function check_vars_event_handler($hook, $type, $return, $params) {
     if (!namespace\instance_of($object)) {
         return $return;
     }
-    
-    // get image from $_FILES post
-    $return['image'] = elgg_extract("image", $_FILES, array()); //@todo: dont use $return for that.
-    
 
     // delete image if checkbox was set
     if (phloor_str_is_true($return['delete_image']) && $object->hasImage()) {
-        $object->deleteImage();    
+        $object->deleteImage();
     }
     unset($return['delete_image']); // reset the delete_image var
+    
+    // get image from $_FILES post
+    $image_input = elgg_extract("image", $_FILES, array()); //@todo: dont use $return for that.
+    
+
+
     // check if upload failed
     /*if (!empty($_FILES['image']['name']) && $_FILES['image']['error'] != 0) {
     register_error(elgg_echo('phloor_menuitem:error:cannotloadimage'));
     forward(REFERER);
     }*/
     // see if an image has been set.. if not.. explicitly reassign the current one!
-    if (!isset($return['image']) || empty($return['image']) || $return['image']['error'] == 4) {
-        $return['image'] = $object->hasImage() ? $object->image : '';
-    } else {
+    $image = '';
+    if (empty($image_input) || $image_input['error'] == 4) {
+        $image = $object->hasImage() ? $object->image : '';
+    } else {      
+        $tmp_filename = elgg_extract('tmp_name', $image_input,  '');
+        $mime         = elgg_extract('type',     $image_input,  '');
+        $error        = elgg_extract('error',    $image_input, -13);
+        
+        if ($error != 0) {
+            register_error(elgg_echo('phloor:upload_error', array(
+            $error,
+            )));
+            unset($return['image']);
+            return false;
+        }
+        
         $file_types = array(
     		'image/jpeg'  => 'jpeg',
     		'image/pjpeg' => 'jpeg',
@@ -81,24 +96,14 @@ function check_vars_event_handler($hook, $type, $return, $params) {
     		'image/x-png' => 'png',
     		'image/gif'   => 'gif',
         );
-
-        if (!array_key_exists($return['image']['type'], $file_types)) {
+        
+        if (!array_key_exists($mime, $file_types)) {
             register_error(elgg_echo('phloor:image_mime_type_not_supported', array(
-                $return['image']['type'],
+                $mime,
             )));
             unset($return['image']);
-            return $return;
-        }
-        if ($params['image']['error'] != 0) {
-            register_error(elgg_echo('phloor:upload_error', array(
-                $return['image']['error'],
-            )));         
-            unset($return['image']);
-            return $return;
-        }
-
-        $tmp_filename = $return['image']['tmp_name'];
-        $mime = $return['image']['type'];
+            return false;
+        } 
 
         // determine filename (clean title)
         $clean_title = ereg_replace("[^A-Za-z0-9]", "", $return['title']); // just numbers and letters
@@ -120,10 +125,11 @@ function check_vars_event_handler($hook, $type, $return, $params) {
             return $return;
         }
 
-        //$params['image'] = $image->getFilenameOnFilestore();
-        $return['image'] = $object->getFilenameOnFilestore();
         $return['mime'] = $mime; // <-- @todo: delete
+        $image = $object->getFilenameOnFilestore();
     }
+    
+    $return['image'] = $image;
 
     return $return;
 }
@@ -132,7 +138,7 @@ function check_vars_event_handler($hook, $type, $return, $params) {
  * 
  *
  */
-function default_vars_event_handler($hook, $type, $return, $params) {
+function default_vars($hook, $type, $return, $params) {
     if ($return === false || !is_array($return)) {
         return $return;
     }
@@ -164,7 +170,7 @@ function default_vars_event_handler($hook, $type, $return, $params) {
  * - 'image' => 'input/file'
  * - 'delete_image' => 'phloor/input/enable'
  */
-function form_vars_event_handler($hook, $type, $return, $params) {
+function form_vars($hook, $type, $return, $params) {
     if ($return === false || !is_array($return)) {
         return $return;
     }
@@ -196,11 +202,11 @@ function form_vars_event_handler($hook, $type, $return, $params) {
 }
 
 // populate your function for the DEFAULT VALUES of your entity
-elgg_register_plugin_hook_handler('phloor_object:default_vars', 'all', __NAMESPACE__ . '\default_vars_event_handler', 900);
+elgg_register_plugin_hook_handler('phloor_object:default_vars', 'all', __NAMESPACE__ . '\default_vars', 900);
 
 // populate your function for the FROM ATTRIBUTES of your entity
-elgg_register_plugin_hook_handler('phloor_object:form_vars',    'all', __NAMESPACE__ . '\form_vars_event_handler', 900);
+elgg_register_plugin_hook_handler('phloor_object:form_vars',    'all', __NAMESPACE__ . '\form_vars', 900);
 
 // populate your function for VALIDATING the attributes of your entity
-elgg_register_plugin_hook_handler('phloor_object:check_vars',   'all', __NAMESPACE__ . '\check_vars_event_handler', 900);
+elgg_register_plugin_hook_handler('phloor_object:check_vars',   'all', __NAMESPACE__ . '\check_vars', 900);
 

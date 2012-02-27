@@ -62,14 +62,20 @@ foreach ($form_variables as $name => $form_params) {
 		'value' => $input_value,
     ));
     
-    // append to form content
-    $form_content .= <<<HTML
+    $output = $input;
+
+    if (strcmp('input/hidden', $input_view) != 0) {
+        $output =<<<HTML
 	<div>
 		<label for="$name">$input_label</label>
 		$input
 		$input_description
 	</div>
 HTML;
+    }
+    
+    // append to form content
+    $form_content .= $output;
 }
 
 $categories_input = elgg_view('input/categories', array('entity' => $entity));
