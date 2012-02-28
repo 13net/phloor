@@ -109,11 +109,8 @@ function phloor_views_boot() {
      */
     elgg_register_simplecache_view('js/phloor/lib/phloorlib');
     $url = elgg_get_simplecache_url('js', 'phloor/lib/phloorlib');
-    elgg_register_js('phloor-js-lib', $url, 'head', 1);
+    elgg_register_js('phloor-js-lib', $url, 'head');
     elgg_load_js('phloor-js-lib');
-    
-    //elgg_register_js('phloor-js-lib', 'mod/phloor/js/lib/phloorlib.js', 'head');
-    //elgg_load_js('phloor-js-lib');
 
     /**
      * External JS

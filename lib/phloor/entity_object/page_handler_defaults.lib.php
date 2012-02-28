@@ -255,6 +255,7 @@ function page_content_list($subtype, $container_guid = NULL, $params = array()) 
 		'list_type_toggle' => false,
 		'offset'           => (int) max(get_input('offset', 0), 0),
 		'limit'            => (int) max(get_input('limit', 10), 0),
+		'list_class'       => "elgg-list-entity phloor-list-$subtype",
 	);
 	$options = array_merge($default_options, $params);
 
@@ -339,16 +340,17 @@ function page_content_edit($subtype, $guid = NULL) {
 	$form = elgg_view('input/form',array(
     	'action' => elgg_normalize_url("action/phloor/object/save/?subtype=$subtype"),
     	'body' => elgg_view('phloor/entity_object/forms/save', array(
-		    'name'    => "phloor-{$subtype}-edit",
 		    'guid'    => $entity->guid,
 		    'container_guid' => get_input('container_guid', $entity->getContainerGUID()),
 		    'subtype' => $subtype,
-	        'form_vars'    => $form_variables,
+	        'form_vars' => $form_variables,
 		)),
-    	'method' => 'post',
-    	'enctype' => 'multipart/form-data',
+	    'id'               => "phloor-{$subtype}-edit",
+	    'name'             => "phloor-{$subtype}",
+    	'method'           => 'post',
+    	'enctype'          => 'multipart/form-data',
     	'disable_security' => false,
-    	'class' => 'elgg-form-alt',
+    	'class'            => 'elgg-form-alt',
     ));
 
     $return = array(
@@ -390,16 +392,17 @@ function page_content_add($subtype, $container_guid = 0) {
 	$form = elgg_view('input/form',array(
     	'action' => elgg_normalize_url("action/phloor/object/save/?subtype=$subtype"),
     	'body' => elgg_view('phloor/entity_object/forms/save', array(
-		    'name'           => "phloor-{$subtype}-add",
 		    'guid'           => NULL,
 		    'container_guid' => get_input('container_guid', $container_guid),
 	        'subtype'        => $subtype,
 	        'form_vars'      => $form_variables,
 		)),
-    	'method' => 'post',
-    	'enctype' => 'multipart/form-data',
+	    'id'               => "phloor-{$subtype}-add",
+	    'name'             => "phloor-{$subtype}",
+    	'method'           => 'post',
+    	'enctype'          => 'multipart/form-data',
     	'disable_security' => false,
-    	'class' => 'elgg-form-alt',
+    	'class'            => 'elgg-form-alt',
 
     ));
 
