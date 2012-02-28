@@ -80,10 +80,11 @@ function check_vars($hook, $type, $return, $params) {
         $tmp_filename = elgg_extract('tmp_name', $image_input,  '');
         $mime         = elgg_extract('type',     $image_input,  '');
         $error        = elgg_extract('error',    $image_input, -13);
+        $temp_name    = elgg_extract('tmp_name', $image_input,  '');
         
         if ($error != 0) {
             register_error(elgg_echo('phloor:upload_error', array(
-            $error,
+                $error,
             )));
             unset($return['image']);
             return false;
@@ -117,7 +118,7 @@ function check_vars($hook, $type, $return, $params) {
 
         // move the file to the data directory
         //$move = move_uploaded_file($_FILES['image']['tmp_name'], $image->getFilenameOnFilestore());
-        $move = move_uploaded_file($return['image']['tmp_name'], $object->getFilenameOnFilestore());
+        $move = move_uploaded_file($temp_name, $object->getFilenameOnFilestore());
         // report errors if that did not succeed
         if (!$move) {
             register_error(elgg_echo('phloor:couldnotmoveuploadedfile'));

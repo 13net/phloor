@@ -65,13 +65,17 @@ foreach ($form_variables as $name => $form_params) {
     $output = $input;
 
     if (strcmp('input/hidden', $input_view) != 0) {
-        $output =<<<HTML
-	<div>
-		<label for="$name">$input_label</label>
+        $inner_content = <<<HTML
+        <label for="$name">$input_label</label>
 		$input
 		$input_description
-	</div>
 HTML;
+        
+        $output = elgg_view('phloor/output/div', array(
+            'name'  => "$name-container",
+            'class' => "phloor-form-item phloor-form-$subtype-$name",
+            'content' => $inner_content,
+        ));
     }
     
     // append to form content

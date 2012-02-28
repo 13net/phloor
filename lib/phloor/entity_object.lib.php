@@ -298,6 +298,10 @@ function save_vars($entity, $params = array()) {
         // to save other types of entities!
     }
     
+    // save the "outdated" values of the entity in $old_entity
+    $old_entity = clone $entity;
+    $old_entity->guid = $entity->guid; // clone omits guid
+    
 	// get default values
 	$defaults = namespace\default_vars($subtype);
 
@@ -335,9 +339,13 @@ function save_vars($entity, $params = array()) {
         return false;
     }
     
+    // pass old values via volatile data of the entity
+    // because one cannot provide additional parameter to an event
+    $entity->setVolatileData('old_entity', $old_entity);
+    
     // trigger save:before event
     elgg_trigger_event('phloor_object:save:after', $subtype, $entity);
-    
+
 	// save site and return status
 	return true;
 }

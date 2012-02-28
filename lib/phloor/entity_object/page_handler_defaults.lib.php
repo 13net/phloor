@@ -47,6 +47,9 @@ function page_owner($params) {
 	if (!elgg_instanceof($owner, 'user')) {
 	    return false;
 	}
+	
+	// mark page as owned by the owner of the entities
+	elgg_set_page_owner_guid($owner->guid);
 
     $subtype = elgg_extract("subtype", $params, NULL);
     $options = namespace\page_content_list($subtype, $owner->guid);
@@ -69,6 +72,9 @@ function page_group($params) {
 	if (!elgg_instanceof($group, 'group')) {
 	    return false;
 	}
+	
+	// mark page as owned by the group
+	elgg_set_page_owner_guid($group->guid);
 
     $subtype = elgg_extract("subtype", $params, NULL);
     $options = namespace\page_content_list($subtype, $group->guid);
@@ -91,6 +97,9 @@ function page_friends($params) {
 	if (!elgg_instanceof($user, 'user')) {
 	    return false;
 	}
+	
+	// mark page as owned by the user 
+	elgg_set_page_owner_guid($user->guid);
 
     $subtype = elgg_extract("subtype", $params, NULL);
     $options = namespace\page_content_friends($subtype, $user->guid);
@@ -114,6 +123,9 @@ function page_view($params) {
 	if (!elgg_instanceof($entity, 'object', $subtype)) {
 	    return false;
 	}
+	
+	// mark page as owned by the user
+	elgg_set_page_owner_guid($entity->getOwnerGUID());
 
     $options = namespace\page_content_read($subtype, $entity->guid);
 
@@ -130,13 +142,16 @@ function page_view($params) {
  *
  * @access private
  */
-function page_add($params) {
-    $container_guid = elgg_get_logged_in_user_guid();
+function page_add($params) {   
+    elgg_set_page_owner_guid(elgg_get_logged_in_user_guid());
     
+    $container_guid = elgg_get_logged_in_user_guid();
+
     $container = elgg_extract("container", $params, NULL);
     if(elgg_instanceof($container)) {
         $container_guid = $container->guid;
     }  
+    
     
     $subtype = elgg_extract("subtype", $params, NULL);
     $options = namespace\page_content_add($subtype, $container_guid);
@@ -160,7 +175,10 @@ function page_edit($params) {
 	if (!elgg_instanceof($entity, 'object', $subtype)) {
 	    return false;
 	}
-
+	
+	// mark page as owned by the user
+	elgg_set_page_owner_guid($entity->getOwnerGUID());
+	
     $options = namespace\page_content_edit($subtype, $entity->guid);
 
 	$options['layout'] = 'content';
