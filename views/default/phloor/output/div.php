@@ -27,11 +27,17 @@ $class    = elgg_extract('class',   $vars, '');
 $name     = elgg_extract('name',    $vars, '');
 $content  = elgg_extract('content', $vars, '');
 
-$options = array(
-    'id'    => $id,
-    'class' => $class,
-    'name'  => $name,
-);
+$options = array();
+if (!empty($id)) {
+    $options['id'] = $id;
+}
+if (!empty($name)) {
+    $options['name'] = $name;
+}
+if (!empty($class)) {
+    $options['class'] = $class;
+}
+
 $attributes = elgg_format_attributes($options);
 
 $content = <<<HTML

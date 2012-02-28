@@ -22,7 +22,10 @@ phloor.load_css_file = function(filename) {
 };
 
 phloor.init = function() { 
-
+    if ($(".phloor-image-lightbox").length) {
+    	$(".phloor-image-lightbox").fancybox({'type': 'image'});
+    } 
+    
  return true;
 }
  

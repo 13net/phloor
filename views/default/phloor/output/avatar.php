@@ -26,13 +26,17 @@
  *
  */
 
-$entity   = elgg_extract('entity',   $vars, null);
-$size     = elgg_extract('size',     $vars, 'small');
-$use_link = elgg_extract('use_link', $vars, true);
-$link_url = elgg_extract('link_url', $vars, '');
-$src      = elgg_extract('src',      $vars, false);
-$alt      = elgg_extract('alt',      $vars, '');
-$title    = elgg_extract('title',    $vars, false);
+$entity     = elgg_extract('entity',     $vars, null);
+$size       = elgg_extract('size',       $vars, 'small');
+$use_link   = elgg_extract('use_link',   $vars, true);
+$link_url   = elgg_extract('link_url',   $vars, '');
+$src        = elgg_extract('src',        $vars, false);
+$alt        = elgg_extract('alt',        $vars, '');
+$title      = elgg_extract('title',      $vars, false);
+$class      = elgg_extract('class',      $vars, '');
+$link_class = elgg_extract('link_class', $vars, '');
+$img_class  = elgg_extract('img_class',  $vars, '');
+
 
 
 if (!in_array($size, array('topbar', 'thumb', 'tiny', 'small', 'medium', 'large'))) {
@@ -51,22 +55,13 @@ if (elgg_instanceof($entity)) {
         $src = elgg_format_url($entity->getIconURL($size));
     }
 }
-
 // if src is now false.. break up.
-if($src === false) {
+if ($src === false) {
     return false;
 }
 $src = elgg_format_url($src);
 
-$class = "elgg-avatar elgg-avatar-$size phloor-avatar-$size";
-if (isset($vars['class'])) {
-	$class = "$class {$vars['class']}";
-}
 
-$img_class = '';
-if (isset($vars['img_class'])) {
-	$img_class = $vars['img_class'];
-}
 
 $name = '';
 if($title !== false) {
@@ -85,21 +80,27 @@ $icon = elgg_view('output/img', array(
 	'style' => "background: url($src) no-repeat;",
 ));
 
+$container_class = "elgg-avatar elgg-avatar-$size phloor-avatar-$size";
+if (!empty($class)) {
+    $container_class = "$container_class {$class}";
+}
 
-?>
-<div class="<?php echo $class; ?>">
-<?php
 if ($use_link) {
-	$class = elgg_extract('link_class', $vars, '');
 	$url = elgg_extract('href', $vars, $link_url);
-	echo elgg_view('output/url', array(
+	$content= elgg_view('output/url', array(
 		'href' => $url,
 		'text' => $icon,
 		'is_trusted' => true,
-		'class' => $class,
+		'class' => $link_class,
 	));
 } else {
-	echo "<a>$icon</a>";
+	$content = "<a>$icon</a>";
 }
-?>
-</div>
+
+$output = elgg_view('phloor/output/div', array(
+    'class'  => $container_class,
+    'content' => $content,
+));
+
+echo $output;
+

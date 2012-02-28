@@ -37,18 +37,27 @@ $entity = get_entity($guid);
 $size = get_input('size', 'small', true);
 $image = $entity->image;
 if (!empty($image) && file_exists($image) && is_file($image)) {
-    if (\phloor\thumbnails\instance_of($entity)) {
+    if ($size != 'master' && \phloor\thumbnails\instance_of($entity)) {
         $image = $entity->getThumbnail($size);
-    	// fall back to orginal image if no thumbnail exists
+    	// fall back to original image if no thumbnail exists
     	if (!file_exists($image) || !is_file($image)) {
     	     $image = $entity->image;
     	}
     }
-
-	// get file contents
-	$contents = file_get_contents($image);
+    
+    
+    // get file contents
+    $contents = file_get_contents($image);
+//     $file = new ElggFile();
+//     $file->owner_guid = $entity->getOwnerGUID();
+//     $file->setFilename($image);
+//     $contents = $file->grabFile();
+    
+    //$mime = $file->getMimeType();
+	
 	// caching images for 10 days
 	header("Content-type: image/jpeg"); // jpeg for thumbs
+	//header("Content-type: $mime");
 	header('Expires: ' . date('r', time() + 864000));
 	header("Pragma: public", true);
 	header("Cache-Control: public", true);
