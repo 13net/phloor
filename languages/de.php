@@ -38,22 +38,42 @@ $german = array(
 /*** general messages *******************************************************/
 
 /*** general entity messages ************************************************/
-	"phloor:success:entity:delete" => 'Objekt wurde erfolgreich gelöscht. ',
-	"phloor:error:entity:delete"   => 'Objekt kann nicht gelöscht werden. ',
+	"phloor:success:entity:delete"      => 'Entity successfully deleted. ',
+	"phloor:message:entity:deleted"     => 'Entity successfully deleted. ',
+	"phloor:error:entity:delete"        => 'Entity can not be deleted. ',
+	"phloor:error:entity:cannot_delete" => 'Entity can not be deleted. ',
 
-	"phloor:success:entity:edit" => 'Objekt erfolgreich editiert. ',
-	"phloor:error:entity:edit"   => 'Objekt konnte nicht editiert werden. ',
+	"phloor:success:entity:edit"      => 'Entity successfully edited. ',
+	"phloor:error:entity:edit"        => 'Entity cannot be edited. ',
+	"phloor:error:entity:cannot_edit" => 'Entity cannot be edited. ',
+
+	"phloor:success:entity:create" => 'Entity successfully created. ',
+	"phloor:error:entity:create"   => 'Entity cannot be created. ',
+
+	"phloor:message:entity:saved"       => 'Entity successfully saved. ',
+	"phloor:error:entity:cannot_save"   => 'Entity cannot be saved. ',
+    "phloor:error:entity:save:attribute_error" => "Attribute konnte nicht übernommen werden %s.",
+
+	"phloor:error:entity:not_found"  => 'Entity not found. ',
+	"phloor:error:class_not_found"   => 'Entity class not found. ',
+	"phloor:error:subtype_not_found" => 'Entity subtype not found. ',
+
+	"phloor:error:singleton:create" => 'Es gibt bereits ein Objekt dieses Typs - solche Objekte können systemweit nur ein einziges Mal existieren. ',
+
+	"phloor:error:view:not_found" => 'Invalide View %s. ',
+	
+	"phloor:error:check_vars:return:false" => 'Validierungsprozess fehlgeschlagen. ',
 
 
-	"phloor:error:entity:not_found" => 'Objekt nicht gefunden ',
+	"phloor:error:unknown_subtype" => 'Unbekannter Subtype.',
 
-	"phloor:error:singleton:create"   => 'Es gibt bereits ein Objekt dieses Typs - solche Objekte können systemweit nur ein einziges Mal existieren. ',
 
 /*** general entity messages ************************************************/
 
 /*** internal plugins settings **********************************************/
 	"phloor:settings:elgg:title"   => 'Elgg Einstellungen',
 	"phloor:settings:phloor:title" => 'phloor Einstellungen',
+	"phloor:settings:metadata:title" => 'Metadaten Einstellungen',
 
 	"phloor:hide_elgg_metadata"   => 'Elgg Metadata in &lt;head /&gt; ausblenden',
 	"phloor:hide_phloor_metadata" => 'Hide phloor Metadata in &lt;head /&gt; ausblenden',

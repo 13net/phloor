@@ -66,14 +66,16 @@ foreach ($form_variables as $name => $form_params) {
 
     if (strcmp('input/hidden', $input_view) != 0) {
         $inner_content = <<<HTML
-        <label for="$name">$input_label</label>
-		$input
-		$input_description
+        <label for="$name" class="control-label">$input_label</label>
+        <div class="controls">
+        	$input
+        	<p class="help-block">$input_description</p>
+        </div>
 HTML;
         
         $output = elgg_view('phloor/output/div', array(
             'name'  => "$name-container",
-            'class' => "phloor-form-item phloor-form-$subtype-$name",
+            'class' => "control-group phloor-form-item phloor-form-$subtype-$name",
             'content' => $inner_content,
         ));
     }

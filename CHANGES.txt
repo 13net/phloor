@@ -3,6 +3,13 @@
  */
 
 /**
+ * @version 1.8.3-12.02.29b (rc3)
+ */
+- 'phloor-image-lightbox' css class + js
+- provide clone of entity value state before save action 
+  in hooks 'phloor_object:save:*'
+
+/**
  * @version 1.8.3-12.02.23b (rc2)
  */
 - hooks 'phloor_object:save:after' and 'phloor_object:save:before'

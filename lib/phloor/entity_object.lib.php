@@ -326,11 +326,10 @@ function save_vars($entity, $params = array()) {
         forward($error_forward_url);
         return false;
     }
-    
-    
-    $options = array(
-    	'entity' => $entity,
-    );
+     
+    // pass old values via volatile data of the entity
+    // because one cannot provide additional parameter to an event
+    $entity->setVolatileData('old_entity', $old_entity);
     
     // trigger save:before event
     elgg_trigger_event('phloor_object:save:before', $subtype, $entity);
@@ -338,10 +337,6 @@ function save_vars($entity, $params = array()) {
     if (!$entity->save()) {
         return false;
     }
-    
-    // pass old values via volatile data of the entity
-    // because one cannot provide additional parameter to an event
-    $entity->setVolatileData('old_entity', $old_entity);
     
     // trigger save:before event
     elgg_trigger_event('phloor_object:save:after', $subtype, $entity);

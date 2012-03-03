@@ -74,20 +74,16 @@ function page_elements_head_hook($hook, $type, $return, $params) {
         return $return;
     }
 
-    // show phloor version and release metadata
-    $hide_phloor_metadata = elgg_get_plugin_setting('hide_phloor_metadata', 'phloor');
-    if (!phloor_str_is_true($hide_phloor_metadata)) {
-    	$phloor_version = phloor_get_version();
-    	$phloor_release = phloor_get_version(true);
+	$phloor_version = phloor_get_version();
+	$phloor_release = phloor_get_version(true);
 
-    	$content = <<<HTML
+	$content = <<<HTML
         <meta name="PhloorRelease" content="{$phloor_version}" />
         <meta name="PhloorVersion" content="{$phloor_release}" />
 HTML;
 
-    	// but it in front of the current content
-    	$return = $content . $return;
-    }
+	// but it in front of the current content
+	$return = $content . $return;
 
     return $return;
 }

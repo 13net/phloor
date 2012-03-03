@@ -32,20 +32,21 @@ require_once(dirname(dirname(dirname(dirname(dirname(__FILE__))))) . "/engine/st
  *
  */
 $guid = (int) get_input('guid', 0, true);
+$size = get_input('size', 'small', true);
+
 $entity = get_entity($guid);
 
-$size = get_input('size', 'small', true);
 $image = $entity->image;
 if (!empty($image) && file_exists($image) && is_file($image)) {
-    if ($size != 'master' && \phloor\thumbnails\instance_of($entity)) {
+    if (\phloor\thumbnails\instance_of($entity)) {
+        
         $image = $entity->getThumbnail($size);
     	// fall back to original image if no thumbnail exists
     	if (!file_exists($image) || !is_file($image)) {
     	     $image = $entity->image;
     	}
     }
-    
-    
+      
     // get file contents
     $contents = file_get_contents($image);
 //     $file = new ElggFile();
