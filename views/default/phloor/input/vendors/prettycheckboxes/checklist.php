@@ -5,11 +5,7 @@ if(empty($options)) {
     return true;
 }
 
-// extend the foot element only one time
-elgg_load_js('phloor-prettycheckboxes-js');
-//if(!phloor_is_view_extended('page/elements/foot', 'phloor/vendors/prettycheckboxes/prettycheckboxes-js')) {
-//    elgg_extend_view('page/elements/foot', 'phloor/vendors/prettycheckboxes/prettycheckboxes-js');
-//}
+//elgg_load_js('phloor-prettycheckboxes-js');
 
 $list_type = elgg_extract('list_type', $vars, 'list');
 

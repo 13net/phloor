@@ -119,9 +119,9 @@ function phloor_views_boot() {
 
     
     // Prettyboxes js 
-    elgg_register_simplecache_view('js/phloor/vendors/prettycheckboxes/js');
-    $url = elgg_get_simplecache_url('js', 'phloor/vendors/prettycheckboxes/js');
-    elgg_register_js('phloor-prettycheckboxes-js', $url, 'head');
+//     elgg_register_simplecache_view('js/phloor/vendors/prettycheckboxes/js');
+//     $url = elgg_get_simplecache_url('js', 'phloor/vendors/prettycheckboxes/js');
+//     elgg_register_js('phloor-prettycheckboxes-js', $url, 'head');
     
     /**
      * External CSS

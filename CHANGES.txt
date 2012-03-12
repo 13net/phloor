@@ -3,6 +3,13 @@
  */
 
 /**
+ * @version 1.8.3-12.03.12b (rc4)
+ */
+- ready to work with 'glee'
+- form-item output compatible with bootstrap
+
+
+/**
  * @version 1.8.3-12.02.29b (rc3)
  */
 - 'phloor-image-lightbox' css class + js

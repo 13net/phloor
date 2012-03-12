@@ -46,42 +46,21 @@ $action_buttons = $save_button . $delete_link;
 
 $form_content = '';
 foreach ($form_variables as $name => $form_params) {
-    $input_view        =  elgg_extract('view',  $form_params, NULL);
-    $input_value       =  elgg_extract('value', $form_params, '');
-    $input_label       =  elgg_extract('label', $form_params, '');
+    $input_view        =  elgg_extract('view',        $form_params, NULL);
+    $input_value       =  elgg_extract('value',       $form_params, '');
+    $input_label       =  elgg_extract('label',       $form_params, '');
     $input_description =  elgg_extract('description', $form_params, '');
     
-    // check if view exists
-    if (!elgg_view_exists($input_view)) {
-        register_error(elgg_echo('phloor:error:form:view_not_found', array($input_view)));
-        continue;
-    }
-    
-    $input = elgg_view($input_view, array(
-		'name'  => $name,
-		'value' => $input_value,
+    // append to form content
+    $form_item = elgg_view('phloor/output/form-item', array(
+        'view'        => $input_view,
+        'value'       => $input_value,
+        'label'       => $input_label,
+        'description' => $input_description,
+        'name'        => $name,
     ));
     
-    $output = $input;
-
-    if (strcmp('input/hidden', $input_view) != 0) {
-        $inner_content = <<<HTML
-        <label for="$name" class="control-label">$input_label</label>
-        <div class="controls">
-        	$input
-        	<p class="help-block">$input_description</p>
-        </div>
-HTML;
-        
-        $output = elgg_view('phloor/output/div', array(
-            'name'  => "$name-container",
-            'class' => "control-group phloor-form-item phloor-form-$subtype-$name",
-            'content' => $inner_content,
-        ));
-    }
-    
-    // append to form content
-    $form_content .= $output;
+    $form_content .= $form_item;
 }
 
 $categories_input = elgg_view('input/categories', array('entity' => $entity));
