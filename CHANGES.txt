@@ -7,7 +7,7 @@
  */
 - ready to work with 'glee'
 - form-item output compatible with bootstrap
-
+- removed settings (metadata)
 
 /**
  * @version 1.8.3-12.02.29b (rc3)

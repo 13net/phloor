@@ -21,6 +21,16 @@
  *****************************************************************************/
 
 
+function phloor_get_data_uri($file, $mime) {
+    if (!file_exists($file) || !is_file($file)) {
+        return false;
+    }
+    
+    $contents = file_get_contents($file);
+    $base64   = base64_encode($contents);
+    
+    return "data:$mime;base64,$base64";
+}
 
 /**
  * get a unique identification string

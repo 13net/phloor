@@ -25,7 +25,7 @@
  */
 // YYYYMMDD = date
 // XX = internal incrementer
-$phloor_version = 2012022200;
+$phloor_version = 2012031300;
 
 // human-friendly version name
 $phloor_release = '1.8.3-b';
