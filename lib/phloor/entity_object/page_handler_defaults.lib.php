@@ -151,12 +151,11 @@ function page_add($params) {
     if(elgg_instanceof($container)) {
         $container_guid = $container->guid;
     }  
-    
-    
+        
     $subtype = elgg_extract("subtype", $params, NULL);
     $options = namespace\page_content_add($subtype, $container_guid);
 
-	$options['layout'] = 'content';
+	$options['layout'] = 'one_column';
 
 	return $options;
 }
@@ -181,7 +180,7 @@ function page_edit($params) {
 	
     $options = namespace\page_content_edit($subtype, $entity->guid);
 
-	$options['layout'] = 'content';
+	$options['layout'] = 'one_column';
 
 	return $options;
 }
@@ -263,7 +262,9 @@ function page_content_list($subtype, $container_guid = NULL, $params = array()) 
     // check if the subtype is controlled by phloor
     if (!\phloor\entity\object\is_object_subtype($subtype)) {
         return false;
-    }
+    }  
+    
+    namespace\register_title_button($subtype, "add");
 
 	$default_options = array(
 		'type'             => 'object',
@@ -312,8 +313,6 @@ function page_content_list($subtype, $container_guid = NULL, $params = array()) 
 		$return['title'] = $title;
 		$return['filter_context'] = 'all';
 	}
-
-    namespace\register_title_button($subtype, "add");
 	
 	$content = elgg_list_entities_from_metadata($options);
 	if (!$content) {
